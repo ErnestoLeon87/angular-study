@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `<ng-container>
-                    <p>5-Limpiar-app.component </p>
+  template: `<mat-toolbar color="primary">
+                    <span>Material</span>
                     <router-outlet></router-outlet>
-             </ng-container> `,
+             </mat-toolbar> `,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
