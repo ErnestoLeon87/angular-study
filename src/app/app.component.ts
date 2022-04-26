@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `<ng-container>
-                    <p>5-Limpiar-app.component </p>
-                    <router-outlet></router-outlet>
-             </ng-container> `,
+  templateUrl:'./app.component.html' ,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
