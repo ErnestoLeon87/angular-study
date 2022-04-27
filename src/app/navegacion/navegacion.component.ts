@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-navegacion',
   template:`<p>
        <mat-toolbar color="primary">
-                   <span>Gestor de tareas</span>
+                   <span  class="smp">Gestor de Tareas</span>
                    <span class="example-spacer"></span>
                    <div class="btn"><samp><button>Crear Tablas</button></samp></div>
                    <div class="btn"><samp><button>Lista de Tareas</button></samp></div>
