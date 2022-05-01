@@ -5,9 +5,9 @@ import { Tarea } from '../tarea-interface/tarea.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class TareaServiceService {
+export class TareaService {
  
-  private tareaBehSub=new BehaviorSubject<Tarea[]>([]);
+  private tareaBehSub=new BehaviorSubject<any>(null);
 
   constructor() { }
   
