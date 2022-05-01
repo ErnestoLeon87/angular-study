@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { NavegacionComponent } from './navegacion/navegacion.component';
 import { FooterComponent } from './footer/footer.component';
+import { TareaServiceService } from './tarea/tarea-service/tarea.service.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { FooterComponent } from './footer/footer.component';
     BrowserAnimationsModule,
     MaterialModule,
   ],
-  providers: [],
+  providers: [TareaServiceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
