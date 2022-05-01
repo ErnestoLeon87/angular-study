@@ -1,0 +1,5 @@
+export enum TareaStatus {
+    PEMDIENTE='PEMDIENTE',
+    EN_PROCESO='EN_PROCESO',
+    TERMINADA='TERMINADA'
+}
