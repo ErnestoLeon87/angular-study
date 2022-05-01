@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Tarea } from '../tarea-interface/tarea.interface';
+import { Tarea } from './tarea.interface';
 
 @Injectable({
   providedIn: 'root'
