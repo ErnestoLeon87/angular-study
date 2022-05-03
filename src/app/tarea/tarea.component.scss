@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex-wrap:wrap-reverse;
+    padding: 10px;
+    border-radius: 10px;
+    width: 50%;
+    background-color:rgb(200, 245, 198)
+    }
+:host{
+    height:100%;
+    padding: 20px;
+}
+button{
+ width: 100px;
+}
