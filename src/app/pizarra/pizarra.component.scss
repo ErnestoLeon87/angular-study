@@ -10,17 +10,17 @@
         flex-grow: 1;
         margin-left:10px;
         padding: 10px;
+        .nuevas {
+            background-color: $nuevasbackg;
+        }
+        
+        .proceso {
+            background-color: $procesobackg;
+        }
+        
+        .terminadas {
+            background-color: $terminadasbackg;
+        }
     }
 }
 
-.nuevas {
-    background-color: $nuevasbackg;
-}
-
-.proceso {
-    background-color: $procesobackg;
-}
-
-.terminadas {
-    background-color: $terminadasbackg;
-}
