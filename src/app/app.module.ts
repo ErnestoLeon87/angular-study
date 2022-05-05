@@ -10,12 +10,14 @@ import { FooterComponent } from './footer/footer.component';
 import { TareaService } from './core/tareas.service';
 import { TareaComponent } from "./tarea/tarea.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,
     NavegacionComponent,
     FooterComponent,
     TareaComponent
+  
     
   ],
   imports: [

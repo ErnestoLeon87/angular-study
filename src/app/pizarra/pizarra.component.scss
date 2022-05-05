@@ -1,0 +1,21 @@
+@import '../../share/variables';
+.container {
+    display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    .tarea {
+        border-radius: 20px;
+        width: 100%;
+        padding: 5px;
+        }
+    }
+
+.nuevas {
+    background-color: $nuevasbackg;
+}
+.proceso {
+    background-color:$procesobackg;
+}
+.terminadas {
+    background-color:$terminadasbackg ;
+}
