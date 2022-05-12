@@ -9,13 +9,17 @@ import { NavegacionComponent } from './navegacion/navegacion.component';
 import { FooterComponent } from './footer/footer.component';
 import { TareaService } from './core/tareas.service';
 import { TareaComponent } from "./tarea/tarea.component";
+import { PizarraComponent } from "./pizarra/pizarra.component";
+
 
 @NgModule({
   declarations: [
     AppComponent,
     NavegacionComponent,
     FooterComponent,
-    TareaComponent
+    TareaComponent,
+    PizarraComponent
+  
     
   ],
   imports: [
