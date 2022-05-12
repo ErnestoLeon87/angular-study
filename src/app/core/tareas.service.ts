@@ -7,18 +7,16 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root'
 })
 export class TareaService {
-  urlTareas='http://localhost:9000/api/tareas';
-  private tareaBehSub = new BehaviorSubject<any>(null);
-  tarea$!: Observable<Tarea>;
+  urlTareas = 'http://localhost:9000/api/tareas';
+  private tareaBehSub = new BehaviorSubject<Tarea[]>([]);
+  tareas$!: Observable<Tarea[]>;
 
   constructor(private http: HttpClient) {
-    this.tarea$ = this.tareaBehSub.asObservable();
+    this.tareas$ = this.tareaBehSub.asObservable();
   }
 
-  getTarea$(): Observable<Tarea[]> {
+  getTareas$(): Observable<Tarea[]> {
     return this.http.get<Tarea[]>(this.urlTareas);
   }
-  private act_tareaBehSub():void{
-    this.tareaBehSub.next(this.getTarea$);
-  }
+ 
 }
