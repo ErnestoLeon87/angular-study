@@ -1,21 +1,23 @@
 @import '../../share/variables';
 
-:host{
+:host {
     flex-grow: 1;
     overflow: hidden;
 }
+
 .container {
     display: flex;
     gap: 20px;
-    padding:0px 30px;
+    padding: 0px 30px;
     justify-content: space-between;
     height: 100%;
-    
+
     .tarea_container {
         flex-grow: 1;
         border-radius: 10px;
         padding: 10px;
         overflow: auto;
+
         h1 {
             padding: 2px;
             border-radius: 5px;
@@ -28,9 +30,9 @@
 
         &.nuevas {
             background-color: $nuevasbackg;
-            
+
             h1 {
-                background-color: $titleNew;
+                background-color: darken($nuevasbackg, 20%);
             }
         }
 
@@ -38,7 +40,7 @@
             background-color: $procesobackg;
 
             h1 {
-                background-color: $titleProces;
+                background-color: darken($procesobackg, 20%);
             }
         }
 
@@ -46,7 +48,7 @@
             background-color: $terminadasbackg;
 
             h1 {
-                background-color: $titleEnd;
+                background-color: darken($terminadasbackg, 20%)
             }
         }
 
