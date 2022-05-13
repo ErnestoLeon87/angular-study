@@ -15,7 +15,7 @@ export class TareaService {
     this.tareas$ = this.tareaBehSub.asObservable();
   }
 
-  getTareas$(): Observable<Tarea[]> {
+  public getTareas$(): Observable<Tarea[]> {
     const urlGetTareas = this.url + '/tareas';
     return this.http
       .get<Tarea[]>(urlGetTareas)
