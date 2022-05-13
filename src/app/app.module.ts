@@ -1,5 +1,5 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,9 +8,9 @@ import { MaterialModule } from './material.module';
 import { NavegacionComponent } from './navegacion/navegacion.component';
 import { FooterComponent } from './footer/footer.component';
 import { TareaService } from './core/tareas.service';
-import { TareaComponent } from "./tarea/tarea.component";
-import { PizarraComponent } from "./pizarra/pizarra.component";
-
+import { TareaComponent } from './tarea/tarea.component';
+import { PizarraComponent } from './pizarra/pizarra.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,15 +18,14 @@ import { PizarraComponent } from "./pizarra/pizarra.component";
     NavegacionComponent,
     FooterComponent,
     TareaComponent,
-    PizarraComponent
-  
-    
+    PizarraComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
+    HttpClientModule,
   ],
   providers: [TareaService],
   bootstrap: [AppComponent],
