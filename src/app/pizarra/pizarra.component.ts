@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, Observable, Subject, map, tap, Subscription } from 'rxjs';
+import { filter, Observable, map, tap } from 'rxjs';
 import { Tarea } from '../core/tarea.interface';
 import { TareaService } from '../core/tareas.service';
 
@@ -9,46 +9,24 @@ import { TareaService } from '../core/tareas.service';
   styleUrls: ['./pizarra.component.scss']
 })
 export class PizarraComponent implements OnInit {
-
+  tareas$!: Observable<Tarea[]>;
   tareasPendientes$!: Observable<Tarea[]>;
-  tareasPendientes!: Tarea[];
-
   tareasEnProceso$!: Observable<Tarea[]>;
-  tareasEnProceso!: Tarea[];
-
   tareasTerminadas$!: Observable<Tarea[]>;
-  tareasTerminadas!: Tarea[];
 
   constructor(private tareasSvc: TareaService) { }
 
   ngOnInit(): void {
+    this.tareas$ = this.tareasSvc.getTareas$();
 
-    this.tareasPendientes$ = this.tareasSvc.getTareas$()
-      .pipe(
-        map((tareas) => tareas.filter(tarea => tarea.status.match('PENDIENTE')))
-      );
+    this.tareasPendientes$ = this.tareas$
+      .pipe(map(val => val.filter(dat => dat.status === 'PENDIENTE')));
 
-    this.tareasEnProceso$ = this.tareasSvc.getTareas$().pipe(
-      map((tareas) => tareas.filter(tarea => tarea.status.match('EN_PROCESO')))
-    );
+    this.tareasEnProceso$ = this.tareas$
+      .pipe(map(val => val.filter(dat => dat.status === 'EN_PROCESO')));
 
-    this.tareasTerminadas$ = this.tareasSvc.getTareas$().pipe(
-      map((tareas) => tareas.filter(tarea => tarea.status.match('TERMINADA')))
-    );
-
-
-
-    this.tareasPendientes$.pipe(
-      tap((tareas: Tarea[]) => this.tareasPendientes = tareas)
-    ).subscribe();
-
-    this.tareasEnProceso$.pipe(
-      tap((tareas: Tarea[]) => this.tareasEnProceso = tareas)
-    ).subscribe();
-
-    this.tareasTerminadas$.pipe(
-      tap((tareas: Tarea[]) => this.tareasTerminadas = tareas)
-    ).subscribe();
+    this.tareasTerminadas$ = this.tareas$
+      .pipe(map(val => val.filter(dat => dat.status === 'TERMINADA')));
   }
 
 }
