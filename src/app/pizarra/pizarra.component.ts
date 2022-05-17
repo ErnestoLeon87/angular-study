@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { filter, Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { TareaStatus } from '../core/tarea-status.enum';
 import { Tarea } from '../core/tarea.interface';
 import { TareaService } from '../core/tareas.service';
 
@@ -8,25 +9,33 @@ import { TareaService } from '../core/tareas.service';
   templateUrl: './pizarra.component.html',
   styleUrls: ['./pizarra.component.scss']
 })
-export class PizarraComponent implements OnInit {
-  tareas$!: Observable<Tarea[]>;
-  tareasPendientes$!: Observable<Tarea[]>;
-  tareasEnProceso$!: Observable<Tarea[]>;
-  tareasTerminadas$!: Observable<Tarea[]>;
 
-  constructor(private tareasSvc: TareaService) { }
+export class PizarraComponent implements OnInit {
+  tareas$?: Observable<Tarea[]>;
+  tareasPendientes$?: Observable<Tarea[]>;
+  tareasEnProceso$?: Observable<Tarea[]>;
+  tareasTerminadas$?: Observable<Tarea[]>;
+
+  constructor(private tareasService: TareaService) { }
 
   ngOnInit(): void {
-    this.tareas$ = this.tareasSvc.getTareas$();
+
+    this.filtrarTareas();
+
+  }
+  private filtrarTareas(): void {
+
+    this.tareas$ = this.tareasService.getTareas$();
 
     this.tareasPendientes$ = this.tareas$
-      .pipe(map(val => val.filter(dat => dat.status === 'PENDIENTE')));
+      .pipe(map(val => val.filter(dat => dat.status === TareaStatus.PENDIENTE)));
 
     this.tareasEnProceso$ = this.tareas$
-      .pipe(map(val => val.filter(dat => dat.status === 'EN_PROCESO')));
+      .pipe(map(val => val.filter(dat => dat.status === TareaStatus.EN_PROCESO)));
 
     this.tareasTerminadas$ = this.tareas$
-      .pipe(map(val => val.filter(dat => dat.status === 'TERMINADA')));
+      .pipe(map(val => val.filter(dat => dat.status === TareaStatus.TERMINADA)));
+
   }
 
 }
