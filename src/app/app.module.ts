@@ -11,6 +11,8 @@ import { TareaService } from './core/tareas.service';
 import { TareaComponent } from './tarea/tarea.component';
 import { PizarraComponent } from './pizarra/pizarra.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ListarTareasComponent } from './listar-tareas/listar-tareas.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     FooterComponent,
     TareaComponent,
     PizarraComponent,
+    ListarTareasComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
