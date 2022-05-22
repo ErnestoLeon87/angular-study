@@ -13,6 +13,7 @@ import { PizarraComponent } from './pizarra/pizarra.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ListarTareasComponent } from './listar-tareas/listar-tareas.component';
 import { AboutComponent } from './about/about.component';
+import { TareaDialogComponent } from './tarea-dialog/tarea-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AboutComponent } from './about/about.component';
     PizarraComponent,
     ListarTareasComponent,
     AboutComponent,
+    TareaDialogComponent,
   ],
   imports: [
     BrowserModule,
