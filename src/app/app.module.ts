@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListarTareasComponent } from './listar-tareas/listar-tareas.component';
 import { AboutComponent } from './about/about.component';
 import { TareaDialogComponent } from './tarea-dialog/tarea-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { TareaDialogComponent } from './tarea-dialog/tarea-dialog.component';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [TareaService],
   bootstrap: [AppComponent],

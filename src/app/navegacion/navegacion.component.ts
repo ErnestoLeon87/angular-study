@@ -15,7 +15,8 @@ export class NavegacionComponent {
 
   constructor(public dialog: MatDialog) { }
 
-  crear_tarea():void{
+  crear_tarea(): void {
+
     const dialogRef = this.dialog.open(TareaDialogComponent);
 
   }
