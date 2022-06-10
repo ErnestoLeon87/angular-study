@@ -5,10 +5,10 @@ import { ListarTareasComponent } from './listar-tareas/listar-tareas.component';
 import { PizarraComponent } from './pizarra/pizarra.component';
 
 const routes: Routes = [
-  {path:'',component:PizarraComponent},
-  {path:'listar_tareas',component:ListarTareasComponent},
-  {path:'about',component:AboutComponent},
-  {path:'**',redirectTo:'',pathMatch:'full'}
+  { path: '', component: PizarraComponent },
+  { path: 'listar_tareas', component: ListarTareasComponent },
+  { path: 'about', component: AboutComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({
