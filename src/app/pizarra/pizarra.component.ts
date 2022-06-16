@@ -25,7 +25,7 @@ export class PizarraComponent implements OnInit {
   }
   private filtrarTareas(): void {
 
-    this.tareas$ = this.tareasService.getTareas$();
+    this.tareas$ = this.tareasService.tareas$;
 
     this.tareasPendientes$ = this.tareas$
       .pipe(map(val => val.filter(dat => dat.status === TareaStatus.PENDIENTE)));
