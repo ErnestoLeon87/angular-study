@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TareaService } from '../core/tareas.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { AfterViewInit, ViewChild } from '@angular/core';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listar-tareas',
@@ -28,9 +29,12 @@ export class ListarTareasComponent implements OnInit, AfterViewInit {
   constructor(private tareaSvc: TareaService) { }
 
   ngOnInit(): void {
-    this.tareaSvc.getTareas$().subscribe((tareas: Tarea[]) => {
-      this.dataSource.data = tareas;
-    })
+    this.tareaSvc.tareas$
+      .pipe(
+        tap((tareas: Tarea[]) => {
+          this.dataSource.data = tareas;
+        }))
+      .subscribe();
   }
 
   applyFilter(event: Event) {
