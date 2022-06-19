@@ -11,7 +11,6 @@ import { TareaService } from '../core/tareas.service';
 })
 
 export class PizarraComponent implements OnInit {
-  tareas$?: Observable<Tarea[]>;
   tareasPendientes$?: Observable<Tarea[]>;
   tareasEnProceso$?: Observable<Tarea[]>;
   tareasTerminadas$?: Observable<Tarea[]>;
@@ -25,15 +24,13 @@ export class PizarraComponent implements OnInit {
   }
   private filtrarTareas(): void {
 
-    this.tareas$ = this.tareasService.tareas$;
-
-    this.tareasPendientes$ = this.tareas$
+    this.tareasPendientes$ = this.tareasService.tareas$
       .pipe(map(val => val.filter(dat => dat.status === TareaStatus.PENDIENTE)));
 
-    this.tareasEnProceso$ = this.tareas$
+    this.tareasEnProceso$ = this.tareasService.tareas$
       .pipe(map(val => val.filter(dat => dat.status === TareaStatus.EN_PROCESO)));
 
-    this.tareasTerminadas$ = this.tareas$
+    this.tareasTerminadas$ = this.tareasService.tareas$
       .pipe(map(val => val.filter(dat => dat.status === TareaStatus.TERMINADA)));
 
   }
