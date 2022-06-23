@@ -3,21 +3,18 @@
 :host {
     flex-grow: 1;
     overflow: hidden;
-}
+   }
 
 .container {
     display: flex;
-    gap: 20px;
-    padding: 0px 30px;
-    justify-content: space-between;
+    justify-content:space-between;
     height: 100%;
-
+   
     .tarea_container {
         flex-grow: 1;
-        border-radius: 10px;
         padding: 10px;
         overflow: auto;
-        max-width: 420px;
+        max-width: 455px;
 
         h1 {
             padding: 2px;
@@ -30,24 +27,21 @@
         }
 
         &.nuevas {
-            background-color: $nuevasbackg;
-
+           
             h1 {
                 background-color: darken($nuevasbackg, 20%);
             }
         }
 
         &.proceso {
-            background-color: $procesobackg;
-
+           
             h1 {
                 background-color: darken($procesobackg, 20%);
             }
         }
 
         &.terminadas {
-            background-color: $terminadasbackg;
-
+          
             h1 {
                 background-color: darken($terminadasbackg, 20%)
             }
