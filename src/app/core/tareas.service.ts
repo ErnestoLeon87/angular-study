@@ -13,8 +13,9 @@ export class TareaService {
 
   constructor(private http: HttpClient) {
     this.tareas$ = this.tareaBehSub.asObservable();
-  }
+    this.getTareas$().subscribe();
 
+  }
   public getTareas$(): Observable<Tarea[]> {
     const urlGetTareas = this.url + '/tareas';
     return this.http
