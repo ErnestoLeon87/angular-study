@@ -1,6 +1,8 @@
 import * as express from 'express';
 import { Application } from 'express';
+import { createNewTarea } from './create-tarea.route';
 import { getAllTareas } from './get-tareas.route';
+import { saveTarea } from './save-tarea.route';
 
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -28,9 +30,9 @@ app.use(
 
 app.route('/api/tareas').get(getAllTareas);
 
-app.route('/api/tarea').post();
+app.route('/api/tarea').post(createNewTarea);
 
-app.route('/api/tarea:tareaId').put();
+app.route('/api/tarea:tareaId').put(saveTarea);
 
 app.route('/api/tarea:tareaId').delete();
 
