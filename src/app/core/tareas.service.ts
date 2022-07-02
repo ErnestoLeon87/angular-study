@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { Tarea } from './tarea.interface';
 import { HttpClient } from '@angular/common/http';
 import { TareaStatus } from './tarea-status.enum';
@@ -9,23 +9,38 @@ import { TareaStatus } from './tarea-status.enum';
 })
 export class TareaService {
   private url = 'http://localhost:9000/api';
-  private postUrl = 'http://localhost:9000/api/tarea';
+  private postUrl = 'http://localhost:9000/api/tarea';//porque no poner la url completa asi? y nos ahorramos la variable del metodo.?
   public tareas$: Observable<Tarea[]>;
   private tareaBehSub = new BehaviorSubject<Tarea[]>([]);
+  tareasArrary: Tarea[] = [];
 
   constructor(private http: HttpClient) {
     this.tareas$ = this.tareaBehSub.asObservable();
     this.getTareas$().subscribe();
 
   }
+
   public getTareas$(): Observable<Tarea[]> {
     const urlGetTareas = this.url + '/tareas';
     return this.http
       .get<Tarea[]>(urlGetTareas)
-      .pipe(tap((tareas: Tarea[]) => this.tareaBehSub.next(tareas)));
+      .pipe(tap((tareas: Tarea[]) => {
+        this.tareaBehSub.next(tareas);
+      }));
   }
-  public addTarea(tarea: Tarea): Observable<Tarea> {
+
+  public addTarea$(tarea: Tarea): Observable<Tarea> {
     tarea.status = TareaStatus.PENDIENTE;
-    return this.http.post<Tarea>(this.postUrl, tarea);
+    this.tareasArrary = this.tareaBehSub.getValue();
+    return this.http.post<Tarea>(this.postUrl, tarea).pipe(
+      catchError(err => throwError(() => new Error('Problemas de conectividad...')
+      )),
+      tap(dat => {
+        this.tareasArrary.push(dat);
+        this.tareaBehSub.next(this.tareasArrary)
+      })
+    );
   }
+
+
 }

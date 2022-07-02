@@ -1,28 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Tarea } from 'server/tarea.interface';
 import { TareaService } from '../core/tareas.service';
-import { tap } from 'rxjs';
-import { Router } from '@angular/router';
-import { MatDialog } from "@angular/material/dialog";
-
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-tarea-dialog',
   templateUrl: './tarea-dialog.component.html',
   styleUrls: ['./tarea-dialog.component.scss']
 })
+
 export class TareaDialogComponent implements OnInit {
 
   public formTarea!: FormGroup;
-  tarea!: Tarea;
-
 
   constructor(private formBuild: FormBuilder,
     private tareaSvc: TareaService,
-    private route: Router,
-    public dialog: MatDialog) { }
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.formTarea = this.formBuild.group({
@@ -31,16 +24,18 @@ export class TareaDialogComponent implements OnInit {
 
     });
   }
-  send() {
-    this.tareaSvc.addTarea(this.formTarea.value)
-      .pipe(
-        tap(dat => console.log('Tarea-Agregada:', dat)),
-        tap(() => {
-          this.route.navigate(['listar_tareas']);
-          const dialogRef = this.dialog.closeAll();
-        })
-      )
-      .subscribe();
+
+  send(): void {
+    this.tareaSvc.addTarea$(this.formTarea.value).subscribe(
+      {
+        next: dat => {
+          this._snackBar.open(dat.titulo, "Se a añadido...", { duration: 2000 })
+        },
+        error: err => this._snackBar.open(err, "close"),
+        complete: () => this.formTarea.reset({ titulo: '', description: '' })
+      }
+    );
   }
+
 
 }
