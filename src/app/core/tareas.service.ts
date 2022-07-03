@@ -33,8 +33,9 @@ export class TareaService {
     tarea.status = TareaStatus.PENDIENTE;
     this.tareasArrary = this.tareaBehSub.getValue();
     return this.http.post<Tarea>(this.postUrl, tarea).pipe(
-      catchError(err => throwError(() => new Error('Problemas de conectividad...')
-      )),
+      catchError(err =>{throw new Error("Proceso invalido, problemas con la API-Tareas.");
+      }
+      ),
       tap(dat => {
         this.tareasArrary.push(dat);
         this.tareaBehSub.next(this.tareasArrary)
