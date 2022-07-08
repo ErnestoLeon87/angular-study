@@ -1,9 +1,7 @@
 <h1 mat-dialog-title>Crear Tarea</h1>
 <div class="container">
-
   <mat-dialog-content class="mat-typography">
     <form [formGroup]="formTarea" class="form">
-     
       <mat-form-field appearance="fill">
         <mat-label>Titulo Tarea</mat-label>
         <input matInput formControlName="titulo">
@@ -15,14 +13,14 @@
             30 caracteres máximo.
           </div>
           <div class="error" *ngIf="formTarea.get('titulo')?.touched && formTarea.get('titulo')?.errors?.['pattern']">
-           Caracteres no validos.
+            Caracteres no validos.
           </div>
         </div>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Descripcion</mat-label>
         <textarea matInput formControlName="description"></textarea>
-         <div *ngIf="formTarea.invalid">
+        <div *ngIf="formTarea.invalid">
           <div class="error"
             *ngIf="formTarea.get('description')?.touched && formTarea.get('description')?.errors?.['maxlength']">
             250 caracteres máximo.
