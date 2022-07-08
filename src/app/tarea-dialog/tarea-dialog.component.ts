@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TareaService } from '../core/tareas.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -28,14 +28,11 @@ export class TareaDialogComponent implements OnInit {
   send(): void {
     this.tareaSvc.addTarea$(this.formTarea.value).subscribe(
       {
-        next: dat => {
-          this._snackBar.open(dat.titulo, "Se a añadido...", { duration: 2000 })
-        },
+        next: dat => { this._snackBar.open(dat.titulo, "Se a añadido...", { duration: 2000 }) },
         error: err => this._snackBar.open(err, "close"),
         complete: () => this.formTarea.reset({ titulo: '', description: '' })
       }
     );
   }
-
 
 }
