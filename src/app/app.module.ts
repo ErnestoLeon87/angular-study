@@ -15,6 +15,8 @@ import { ListarTareasComponent } from './listar-tareas/listar-tareas.component';
 import { AboutComponent } from './about/about.component';
 import { TareaDialogComponent } from './tarea-dialog/tarea-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './spinner-component/spinner.component';
+
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListarTareasComponent,
     AboutComponent,
     TareaDialogComponent,
+   SpinnerComponent
   ],
   imports: [
     BrowserModule,
