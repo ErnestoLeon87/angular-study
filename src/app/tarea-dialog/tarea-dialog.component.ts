@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TareaService } from '../core/tareas.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SpinnerService } from '../core/spinner-service/spinner.service';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -11,15 +12,15 @@ import { SpinnerService } from '../core/spinner-service/spinner.service';
   styleUrls: ['./tarea-dialog.component.scss']
 })
 
-export class TareaDialogComponent implements OnInit {
+export class TareaDialogComponent implements OnInit, OnDestroy {
 
   public formTarea!: FormGroup;
-  estado:boolean=false;
+  onDestroy$: Subject<boolean> = new Subject();
 
   constructor(private formBuild: FormBuilder,
     private tareaSvc: TareaService,
     private _snackBar: MatSnackBar,
-    private spinner:SpinnerService) { }
+    private spinner: SpinnerService) { }
 
   ngOnInit(): void {
     this.formTarea = this.formBuild.group({
@@ -29,18 +30,24 @@ export class TareaDialogComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.onDestroy$.next(true);
+  }
+  
   send(): void {
-    
     this.spinner.activeSpinner();
-
-    this.tareaSvc.addTarea$(this.formTarea.value).subscribe(
+    this.tareaSvc.addTarea$(this.formTarea.value).pipe(
+      takeUntil(this.onDestroy$)
+    ).subscribe(
       {
-        next: dat => { 
-                      this.spinner.desactiveSpinner();
-                      this._snackBar.open(dat.titulo, "Se a añadido...", { duration: 2000 }); },
-        error: err =>{
-                    this.spinner.desactiveSpinner();
-                    this._snackBar.open(err, "",{ duration: 2000 }); } ,
+        next: dat => {
+          this.spinner.desactiveSpinner();
+          this._snackBar.open(dat.titulo, "Se a añadido...", { duration: 2000 });
+        },
+        error: err => {
+          this.spinner.desactiveSpinner();
+          this._snackBar.open(err, "", { duration: 2000 });
+        },
         complete: () => this.formTarea.reset({ titulo: '', description: '' })
       }
     );

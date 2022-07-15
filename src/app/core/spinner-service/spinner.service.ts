@@ -5,18 +5,19 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SpinnerService {
-  private loadingBehSub= new BehaviorSubject<boolean>(false);
-  spinner$!:Observable<boolean>;
+  private loadingBehSub = new BehaviorSubject<boolean>(false);
 
-  constructor() {
-    this.spinner$=this.loadingBehSub.asObservable();
-   }
+  get spinner$(): Observable<boolean> {
+    return this.loadingBehSub.asObservable();
+  }
 
-  activeSpinner():void{
+  constructor() { }
+
+  activeSpinner(): void {
     this.loadingBehSub.next(true);
   }
 
-  desactiveSpinner():void{
+  desactiveSpinner(): void {
     this.loadingBehSub.next(false);
   }
 

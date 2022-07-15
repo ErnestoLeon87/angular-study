@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SpinnerService } from './core/spinner-service/spinner.service';
-
 
 @Component({
   selector: 'app-root',
@@ -10,10 +7,7 @@ import { SpinnerService } from './core/spinner-service/spinner.service';
 })
 export class AppComponent {
   title = 'angular-study';
-  spinner$!:Observable<boolean>;
 
-  constructor(private spinner:SpinnerService) {
-    this.spinner$=spinner.spinner$;
-   }
+  constructor() {}
 
 }

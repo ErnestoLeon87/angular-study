@@ -1,14 +1,12 @@
-:host {
-    position: fixed;
-    z-index: 1001;
-    height: 100%;
-    width: 100%;
-}
-
-.spinner_container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(112, 177, 241, .5);
+.spinner_container{
+  background-color: rgb(174, 185, 236,.7);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
 }
