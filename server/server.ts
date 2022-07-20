@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { Application } from 'express';
 import { createNewTarea } from './create-tarea.route';
+import { deleteTarea } from './delete-tarea';
 import { getAllTareas } from './get-tareas.route';
 import { saveTarea } from './save-tarea.route';
 
@@ -34,7 +35,7 @@ app.route('/api/tarea').post(createNewTarea);
 
 app.route('/api/tarea:tareaId').put(saveTarea);
 
-app.route('/api/tarea:tareaId').delete();
+app.route('/api/tarea:tareaId').delete(deleteTarea);
 
 const httpServer: any = app.listen(9000, () => {
   console.log(
