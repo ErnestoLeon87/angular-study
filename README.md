@@ -8,8 +8,8 @@ Esta app se encargara de adminsitrar tareas; crear, cerrar, marcarlas en, espera
 * npm run server
     * GET: /api/tareas -> lista de tareas
     * POST: /api/tarea -> crear nueva tarea
-    * PUT: /api/tarea:tareaId -> editar tarea
-    * DELETE: /api/tarea:tareaId -> eliminar tarea
+    * PUT: /api/tarea/:tareaId -> editar tarea e.g.: http://localhost:9000/api/tarea/4
+    * DELETE: /api/tarea/:tareaId -> eliminar tarea e.g.: http://localhost:9000/api/tarea/1
 
 ### Run Angular app
 * ng serve
