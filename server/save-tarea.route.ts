@@ -3,9 +3,9 @@ import { TAREAS } from './db-data';
 import { Tarea } from './tarea.interface';
 
 export function saveTarea(req: Request, res: Response) {
-  console.log('Saving Tarea');
+  console.log('Saving Tarea!!!');
 
-  const id: number = Number.parseInt(req.params['id']),
+  const id: number = Number.parseInt(req.params['tareaId']),
     changes = req.body;
 
   TAREAS[getIndexFromTAREASbyId(id)] = { id, ...changes } as Tarea;
