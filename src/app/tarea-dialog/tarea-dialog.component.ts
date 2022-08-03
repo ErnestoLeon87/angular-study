@@ -6,6 +6,7 @@ import { SpinnerService } from '../core/spinner-service/spinner.service';
 import { finalize, Subscription } from 'rxjs';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Tarea } from '../core/tarea.interface';
+import { TareaStatus } from '../core/tarea-status.enum';
 
 
 @Component({
@@ -18,25 +19,27 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
 
   public formTarea!: FormGroup;
   private subscription!: Subscription;
+  //select vars
+  estados: string[] = [TareaStatus.PENDIENTE, TareaStatus.EN_PROCESO, TareaStatus.TERMINADA];
 
   constructor(private formBuild: FormBuilder,
     private tareaSvc: TareaService,
     private _snackBar: MatSnackBar,
     private spinner: SpinnerService,
-    public dialog:MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data:Tarea
+    public dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: Tarea
   ) { }
 
   ngOnInit(): void {
 
-      this.formTarea = this.formBuild.group({
-        titulo: ['', [Validators.required, Validators.maxLength(30), Validators.pattern(/^[a-zA-Z 0-9.]+$/)]],
-        description: ['', Validators.maxLength(250)]
-      });
+    this.formTarea = this.formBuild.group({
+      titulo: ['', [Validators.required, Validators.maxLength(30), Validators.pattern(/^[a-zA-Z 0-9.]+$/)]],
+      description: ['', Validators.maxLength(250)],
+      status: [''],
+    });
 
-      if(this.data)
-        this.formTarea.patchValue(this.data);
-     
+    if (this.data)
+      this.formTarea.patchValue(this.data);
   }
 
   ngOnDestroy(): void {
@@ -55,19 +58,19 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
       .subscribe({
         next: dat => this._snackBar.open(dat.titulo, "se a añadido...", { duration: 2000 }),
         error: err => this._snackBar.open(err, "", { duration: 2000 }),
-        complete: () => this.formTarea.reset({ titulo: '', description: '' })
+        complete: () => this.formTarea.reset({ titulo: '', description: '', estado: '' })
       });
 
   }
-  edit():void{
-    this.data.titulo=this.formTarea.value.titulo;
-    this.data.description=this.formTarea.value.description;
-    this.subscription=this.tareaSvc.editTarea$(this.data)
-    .subscribe({
-      next: dat => this._snackBar.open('updated task...', '', { duration: 2000 }),
-      error: err => this._snackBar.open(err, "", { duration: 2000 }),
-      complete: () => {const dialogRef=this.dialog.closeAll();}
-    });
+
+  edit(): void {
+    const id_tareaEdit = this.data.id;
+    this.subscription = this.tareaSvc.editTarea$(this.formTarea.value, id_tareaEdit)
+      .subscribe({
+        next: dat => this._snackBar.open('Task updated successfully.', '', { duration: 2000 }),
+        error: err => this._snackBar.open(err, "", { duration: 2000 }),
+        complete: () => { const dialogRef = this.dialog.closeAll(); }
+      });
   }
 
 }

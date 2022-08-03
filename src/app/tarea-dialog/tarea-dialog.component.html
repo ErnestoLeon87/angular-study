@@ -1,5 +1,7 @@
-<h1 mat-dialog-title *ngIf="data">Editar Tarea</h1>
-<h1 mat-dialog-title *ngIf="data===null">Crear Tarea</h1>
+<h1 mat-dialog-title *ngIf="data else datanull">Editar Tarea</h1>
+<ng-template #datanull>
+  <h1 mat-dialog-title>Crear Tarea</h1>
+</ng-template>
 <div class="container">
   <mat-dialog-content class="mat-typography">
     <form [formGroup]="formTarea" class="form">
@@ -18,6 +20,7 @@
           </div>
         </div>
       </mat-form-field>
+
       <mat-form-field appearance="fill">
         <mat-label>Descripcion</mat-label>
         <textarea matInput formControlName="description"></textarea>
@@ -29,11 +32,22 @@
         </div>
       </mat-form-field>
       <small> {{this.formTarea.get('description')?.value.length}}/250</small>
+      
+      <mat-form-field *ngIf="data" appearance="fill">
+        <mat-label>Tarea Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option></mat-option>
+          <mat-option [value]="option" *ngFor="let option of estados">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-flat-button mat-dialog-close color="accent">Cancel</button>
-    <button *ngIf="data===null" mat-flat-button color="primary" [disabled]="formTarea.invalid" (click)="send()">Crear</button>
-    <button *ngIf="data" mat-flat-button color="primary" [disabled]="formTarea.invalid" (click)="edit()">Edit</button>
+    <button *ngIf="data===null else datatarea" mat-flat-button color="primary" [disabled]="formTarea.invalid"
+      (click)="send()">Crear</button>
+    <ng-template #datatarea>
+      <button mat-flat-button color="primary" [disabled]="formTarea.invalid" (click)="edit()">Edit</button>
+    </ng-template>
   </mat-dialog-actions>
 </div>
