@@ -58,7 +58,7 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
       .subscribe({
         next: dat => this._snackBar.open(dat.titulo, "se a añadido...", { duration: 2000 }),
         error: err => this._snackBar.open(err, "", { duration: 2000 }),
-        complete: () => this.formTarea.reset({ titulo: '', description: '', estado: '' })
+        complete: () => this.formTarea.reset({ titulo: '', description: '', status: '' })
       });
 
   }
