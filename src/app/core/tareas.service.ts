@@ -45,8 +45,8 @@ export class TareaService {
     //updating array for tareaBehSub 
     let tareaEditArray = this.updateArray(tarea, id);
     return this.http.put<Tarea>(urlEditTarea, tarea).pipe(
-      tap(dat => { this.tareaBehSub.next(tareaEditArray) }),
-      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") })
+      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
+      tap(dat => { this.tareaBehSub.next(tareaEditArray) })
     );
   }
 
