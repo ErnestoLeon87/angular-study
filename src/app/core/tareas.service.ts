@@ -11,7 +11,7 @@ export class TareaService {
   private url = 'http://localhost:9000/api';
   public tareas$: Observable<Tarea[]>;
   private tareaBehSub = new BehaviorSubject<Tarea[]>([]);
-  
+
   constructor(private http: HttpClient) {
     this.tareas$ = this.tareaBehSub.asObservable();
     this.getTareas$().subscribe();
@@ -22,7 +22,7 @@ export class TareaService {
     return this.http
       .get<Tarea[]>(urlGetTareas)
       .pipe(tap((tareas: Tarea[]) => {
-      this.tareaBehSub.next(tareas);
+        this.tareaBehSub.next(tareas);
       }));
   }
 
@@ -39,20 +39,22 @@ export class TareaService {
     );
   }
 
-  public editTarea$(tarea:Tarea, id:number):Observable<Tarea>{
-    tarea.id=id;
-    const urlEditTarea = this.url + '/tarea/'+id;
-   //updating array for tareaBehSub 
-   let tareaEditArray=this.updateArray(tarea,id);
-   return this.http.put<Tarea>(urlEditTarea,tarea).pipe(
-      tap(dat=> {this.tareaBehSub.next(tareaEditArray)}),
+  public editTarea$(tarea: Tarea, id: number): Observable<Tarea> {
+    tarea.id = id;
+    const urlEditTarea = this.url + '/tarea/' + id;
+    //updating array for tareaBehSub 
+    let tareaEditArray = this.updateArray(tarea, id);
+    return this.http.put<Tarea>(urlEditTarea, tarea).pipe(
+      tap(dat => { this.tareaBehSub.next(tareaEditArray) }),
       catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") })
     );
   }
-  updateArray(tarea:Tarea,id:number):Tarea[]{
-    let varArray=this.tareaBehSub.getValue();
-   const index=varArray.findIndex(valTarea=> valTarea.id===id);
-   varArray[index]=tarea;
-   return varArray;
+
+  updateArray(tarea: Tarea, id: number): Tarea[] {
+    let varArray = this.tareaBehSub.getValue();
+    const index = varArray.findIndex(valTarea => valTarea.id === id);
+    varArray[index] = tarea;
+    return varArray;
   }
+
 }

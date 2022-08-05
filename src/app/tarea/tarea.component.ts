@@ -14,16 +14,11 @@ export class TareaComponent implements OnInit {
 
   constructor(public dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-  }
+  editTarea(tareaEdit: Tarea): void {
 
-  editTarea(): void {
-    const dialogRef = this.dialog.open(TareaDialogComponent,
-      {
-        data: { id: this.tarea.id, titulo: this.tarea.titulo, description: this.tarea.description, status: this.tarea.status },
-      });
-
+    const dialogRef = this.dialog.open(TareaDialogComponent, { data: tareaEdit });
   }
 
 }

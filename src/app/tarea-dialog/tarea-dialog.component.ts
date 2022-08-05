@@ -19,15 +19,14 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
 
   public formTarea!: FormGroup;
   private subscription!: Subscription;
-  //select vars
-  estados: string[] = [TareaStatus.PENDIENTE, TareaStatus.EN_PROCESO, TareaStatus.TERMINADA];
+  estadoTareas = Object.values(TareaStatus);
 
   constructor(private formBuild: FormBuilder,
     private tareaSvc: TareaService,
     private _snackBar: MatSnackBar,
     private spinner: SpinnerService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: Tarea
+    @Inject(MAT_DIALOG_DATA) public tarea_Edit: Tarea
   ) { }
 
   ngOnInit(): void {
@@ -35,11 +34,12 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
     this.formTarea = this.formBuild.group({
       titulo: ['', [Validators.required, Validators.maxLength(30), Validators.pattern(/^[a-zA-Z 0-9.]+$/)]],
       description: ['', Validators.maxLength(250)],
-      status: [''],
+      status: ['']
     });
 
-    if (this.data)
-      this.formTarea.patchValue(this.data);
+    if (this.tarea_Edit) { }
+    this.formTarea.patchValue(this.tarea_Edit);
+
   }
 
   ngOnDestroy(): void {
@@ -51,7 +51,7 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
 
   }
 
-  send(): void {
+  CrearTarea(): void {
     this.spinner.activeSpinner();
     this.subscription = this.tareaSvc.addTarea$(this.formTarea.value).pipe(
       finalize(() => this.spinner.desactiveSpinner()))
@@ -63,13 +63,13 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
 
   }
 
-  edit(): void {
-    const id_tareaEdit = this.data.id;
+  editarTarea(): void {
+    const id_tareaEdit = this.tarea_Edit.id;
     this.subscription = this.tareaSvc.editTarea$(this.formTarea.value, id_tareaEdit)
       .subscribe({
         next: dat => this._snackBar.open('Task updated successfully.', '', { duration: 2000 }),
         error: err => this._snackBar.open(err, "", { duration: 2000 }),
-        complete: () => { const dialogRef = this.dialog.closeAll(); }
+        complete: () => { this.dialog.closeAll(); }
       });
   }
 
