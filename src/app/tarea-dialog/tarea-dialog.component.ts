@@ -26,7 +26,7 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private spinner: SpinnerService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public tarea_Edit: Tarea
+    @Inject(MAT_DIALOG_DATA) public tareaEdit: Tarea//cambiar nombre por tareaEdit
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +37,8 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
       status: ['']
     });
 
-    if (this.tarea_Edit) { }
-    this.formTarea.patchValue(this.tarea_Edit);
+    if (this.tareaEdit) { }
+    this.formTarea.patchValue(this.tareaEdit);
 
   }
 
@@ -58,19 +58,25 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
       .subscribe({
         next: dat => this._snackBar.open(dat.titulo, "se a añadido...", { duration: 2000 }),
         error: err => this._snackBar.open(err, "", { duration: 2000 }),
-        complete: () => this.formTarea.reset({ titulo: '', description: '', status: '' })
+        complete: () => this.formTarea.reset({ titulo: '', description: ''})
       });
 
   }
 
   editarTarea(): void {
-    const id_tareaEdit = this.tarea_Edit.id;
-    this.subscription = this.tareaSvc.editTarea$(this.formTarea.value, id_tareaEdit)
+    this.subscription = this.tareaSvc.editTarea$(this.getTareaReadyToSave(this.tareaEdit.id))
       .subscribe({
         next: dat => this._snackBar.open('Task updated successfully.', '', { duration: 2000 }),
         error: err => this._snackBar.open(err, "", { duration: 2000 }),
         complete: () => { this.dialog.closeAll(); }
       });
+  }
+
+  private getTareaReadyToSave(oldTareaId: number): Tarea {
+    return {
+      id: oldTareaId,
+      ...this.formTarea.value
+    } as Tarea;
   }
 
 }

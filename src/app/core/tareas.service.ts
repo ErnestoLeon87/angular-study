@@ -39,22 +39,21 @@ export class TareaService {
     );
   }
 
-  public editTarea$(tarea: Tarea, id: number): Observable<Tarea> {
-    tarea.id = id;
-    const urlEditTarea = this.url + '/tarea/' + id;
+  public editTarea$(tarea: Tarea): Observable<Tarea> {
+    const urlEditTarea = this.url + '/tarea/' + tarea.id;
     //updating array for tareaBehSub 
-    let tareaEditArray = this.updateArray(tarea, id);
+    let tareaEditArray = this.updateArray(tarea);
     return this.http.put<Tarea>(urlEditTarea, tarea).pipe(
       catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
-      tap(dat => { this.tareaBehSub.next(tareaEditArray) })
+      tap(dat => { this.tareaBehSub.next(tareaEditArray) })//aqui dentro podria pasar el metodo updateArray directo?
     );
   }
 
-  updateArray(tarea: Tarea, id: number): Tarea[] {
-    let varArray = this.tareaBehSub.getValue();
-    const index = varArray.findIndex(valTarea => valTarea.id === id);
-    varArray[index] = tarea;
-    return varArray;
+  updateArray(tarea: Tarea): Tarea[] {
+    let oldArray =Array.from(this.tareaBehSub.getValue());
+    const index = oldArray.findIndex(valTarea => valTarea.id === tarea.id);
+    oldArray[index] = tarea;
+    return oldArray;
   }
 
 }

@@ -18,7 +18,7 @@ export class TareaComponent implements OnInit {
 
   editTarea(tareaEdit: Tarea): void {
 
-    const dialogRef = this.dialog.open(TareaDialogComponent, { data: tareaEdit });
+    this.dialog.open(TareaDialogComponent, { data: tareaEdit });
   }
 
 }

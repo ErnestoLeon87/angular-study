@@ -1,4 +1,4 @@
-<h1 mat-dialog-title *ngIf="tarea_Edit else datanull">Editar Tarea</h1>
+<h1 mat-dialog-title *ngIf="tareaEdit else datanull">Editar Tarea</h1>
 <ng-template #datanull>
   <h1 mat-dialog-title>Crear Tarea</h1>
 </ng-template>
@@ -33,7 +33,7 @@
       </mat-form-field>
       <small> {{this.formTarea.get('description')?.value.length}}/250</small>
       
-      <mat-form-field *ngIf="tarea_Edit" appearance="fill">
+      <mat-form-field *ngIf="tareaEdit" appearance="fill">
         <mat-label>Tarea Estado</mat-label>
         <mat-select formControlName="status">
           <mat-option></mat-option>
@@ -44,7 +44,7 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-flat-button mat-dialog-close color="accent">Cancel</button>
-    <button *ngIf="tarea_Edit===null else datatarea" mat-flat-button color="primary" [disabled]="formTarea.invalid"
+    <button *ngIf="tareaEdit===null else datatarea" mat-flat-button color="primary" [disabled]="formTarea.invalid"
       (click)="CrearTarea()">Crear</button>
     <ng-template #datatarea>
       <button mat-flat-button color="primary" [disabled]="formTarea.invalid" (click)="editarTarea()">Edit</button>
