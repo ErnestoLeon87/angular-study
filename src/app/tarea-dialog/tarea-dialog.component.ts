@@ -26,7 +26,7 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar,
     private spinner: SpinnerService,
     public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public tareaEdit: Tarea//cambiar nombre por tareaEdit
+    @Inject(MAT_DIALOG_DATA) public tareaEdit: Tarea
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +51,7 @@ export class TareaDialogComponent implements OnInit, OnDestroy {
 
   }
 
-  CrearTarea(): void {
+  crearTarea(): void {
     this.spinner.activeSpinner();
     this.subscription = this.tareaSvc.addTarea$(this.formTarea.value).pipe(
       finalize(() => this.spinner.desactiveSpinner()))
