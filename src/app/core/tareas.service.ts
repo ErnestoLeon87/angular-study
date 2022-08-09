@@ -12,11 +12,9 @@ export class TareaService {
   public tareas$: Observable<Tarea[]>;
   private tareaBehSub = new BehaviorSubject<Tarea[]>([]);
 
-
   constructor(private http: HttpClient) {
     this.tareas$ = this.tareaBehSub.asObservable();
     this.getTareas$().subscribe();
-
   }
 
   public getTareas$(): Observable<Tarea[]> {
@@ -30,16 +28,30 @@ export class TareaService {
 
   public addTarea$(tarea: Tarea): Observable<Tarea> {
     const urlPostTarea = this.url + '/tarea';
-    var tareasArrary: Tarea[] = this.tareaBehSub.getValue();
+    let tareasArrary = this.tareaBehSub.getValue();
     tarea.status = TareaStatus.PENDIENTE;
     return this.http.post<Tarea>(urlPostTarea, tarea).pipe(
       catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
       tap((tarea: Tarea) => {
         tareasArrary.push(tarea);
-        this.tareaBehSub.next(tareasArrary)
+        this.tareaBehSub.next(tareasArrary);
       })
     );
   }
 
+  public editTarea$(tarea: Tarea): Observable<Tarea> {
+    const urlEditTarea = this.url + '/tarea/' + tarea.id;
+    return this.http.put<Tarea>(urlEditTarea, tarea).pipe(
+      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
+      tap(dat => { this.tareaBehSub.next(this.updateArray(tarea)) })
+    );
+  }
+
+  private updateArray(tarea: Tarea): Tarea[] {
+    let oldArray = Array.from(this.tareaBehSub.getValue());
+    const index = oldArray.findIndex(valTarea => valTarea.id === tarea.id);
+    oldArray[index] = tarea;
+    return oldArray;
+  }
 
 }
