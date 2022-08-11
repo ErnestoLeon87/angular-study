@@ -5,7 +5,7 @@ import { Tarea } from './tarea.interface';
 export function deleteTarea(req: Request, res: Response) {
   console.log('Deleting Tarea');
 
-  const id: number = Number.parseInt(req.params['id']);
+  const id: number = Number.parseInt(req.params['tareaId']);
 
   TAREAS.slice(getIndexFromTAREASbyId(id), 1);
 
