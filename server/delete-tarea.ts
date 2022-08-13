@@ -7,10 +7,10 @@ export function deleteTarea(req: Request, res: Response) {
 
   const id: number = Number.parseInt(req.params['tareaId']);
 
-  TAREAS.slice(getIndexFromTAREASbyId(id), 1);
+  let elementDeleted = TAREAS.splice(getIndexFromTAREASbyId(id), 1);
 
   setTimeout(() => {
-    res.status(200).json(Object.values(TAREAS));
+    res.status(200).json(Object.values(elementDeleted));
   }, 1000);
 }
 
