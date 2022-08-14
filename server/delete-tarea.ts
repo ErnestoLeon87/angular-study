@@ -10,7 +10,7 @@ export function deleteTarea(req: Request, res: Response) {
   let elementDeleted = TAREAS.splice(getIndexFromTAREASbyId(id), 1);
 
   setTimeout(() => {
-    res.status(200).json(Object.values(elementDeleted));
+    res.status(200).json(elementDeleted.length >= 0 ? elementDeleted[0] : null);
   }, 1000);
 }
 
