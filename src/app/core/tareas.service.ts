@@ -47,11 +47,23 @@ export class TareaService {
     );
   }
 
+  public deleteTarea(idTareaDelete: number): Observable<Tarea> {
+    const urlDeleteTarea = this.url + '/tarea/' + idTareaDelete;
+    return this.http.delete<Tarea>(urlDeleteTarea).pipe(
+      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
+      tap(dat => { this.tareaBehSub.next(this.updateArrayDelete(idTareaDelete)) })
+    );
+  }
+
   private updateArray(tarea: Tarea): Tarea[] {
     let oldArray = Array.from(this.tareaBehSub.getValue());
     const index = oldArray.findIndex(valTarea => valTarea.id === tarea.id);
     oldArray[index] = tarea;
     return oldArray;
+  }
+  private updateArrayDelete(idTarea: number): Tarea[] {
+    let oldArray = Array.from(this.tareaBehSub.getValue());
+    return oldArray.filter((tarea) => tarea.id !== idTarea);
   }
 
 }
