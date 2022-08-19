@@ -27,7 +27,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
             MatPaginatorModule,
             MatSnackBarModule,
             MatProgressSpinnerModule
-        ]
-
+        ] 
+       
 })
 export class MaterialModule { }

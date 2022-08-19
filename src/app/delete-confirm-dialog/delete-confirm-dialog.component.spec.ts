@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TareaDeleteDialogComponent } from './tarea-delete-dialog.component';
+import { TareaDeleteDialogComponent } from './delete-confirm-dialog.component';
 
 describe('TareaDeleteDialogComponent', () => {
   let component: TareaDeleteDialogComponent;
