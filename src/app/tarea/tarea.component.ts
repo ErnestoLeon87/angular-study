@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { tap } from 'rxjs';
+import { filter} from 'rxjs';
 import { Tarea } from '../core/tarea.interface'
 import { TareaService } from '../core/tareas.service';
 import { DeleteConfirmDialogComponent } from '../delete-confirm-dialog/delete-confirm-dialog.component';
@@ -24,15 +24,12 @@ export class TareaComponent implements OnInit {
     this.dialog.open(TareaDialogComponent, { data: tareaEdit });
   }
 
-  deleteTarea(TareaDelete: Tarea): void {
-    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, { data: TareaDelete.titulo });
+  deleteTarea(tarea: Tarea): void {
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, { data: tarea.titulo });
 
     dialogRef.afterClosed().pipe(
-      tap(confirm => {
-        if (confirm)
-          this.deleteTareaSvc(TareaDelete.id);
-      })
-    ).subscribe();
+     filter(confirm=>confirm==true)
+    ).subscribe(dat=>this.deleteTareaSvc(tarea.id));
   }
 
   deleteTareaSvc(idTarea: number): void {

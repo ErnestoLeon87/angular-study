@@ -14,7 +14,7 @@ export class DeleteConfirmDialogComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onNoClick(userConfirmation: boolean): void {
-    this.dialogRef.close(userConfirmation);
+  onNoClick(userDecision: boolean): void {
+    this.dialogRef.close(userDecision);
   }
 }

@@ -8,9 +8,9 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from "@angular/material/icon";
-import {MatPaginatorModule} from '@angular/material/paginator';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     exports:
@@ -27,7 +27,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
             MatPaginatorModule,
             MatSnackBarModule,
             MatProgressSpinnerModule
-        ] 
-       
+        ]
 })
 export class MaterialModule { }
