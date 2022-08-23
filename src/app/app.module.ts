@@ -16,6 +16,7 @@ import { AboutComponent } from './about/about.component';
 import { TareaDialogComponent } from './tarea-dialog/tarea-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner-component/spinner.component';
+import { DeleteConfirmDialogComponent } from './delete-confirm-dialog/delete-confirm-dialog.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { SpinnerComponent } from './spinner-component/spinner.component';
     ListarTareasComponent,
     AboutComponent,
     TareaDialogComponent,
-   SpinnerComponent
+    SpinnerComponent,
+    DeleteConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,4 +43,4 @@ import { SpinnerComponent } from './spinner-component/spinner.component';
   providers: [TareaService],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
