@@ -1,20 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 
-import { TareaDeleteDialogComponent } from './delete-confirm-dialog.component';
+import { DeleteConfirmDialogComponent } from './delete-confirm-dialog.component';
 
-describe('TareaDeleteDialogComponent', () => {
-  let component: TareaDeleteDialogComponent;
-  let fixture: ComponentFixture<TareaDeleteDialogComponent>;
+describe('DeleteConfirmDialogComponent', () => {
+  let component: DeleteConfirmDialogComponent;
+  let fixture: ComponentFixture<DeleteConfirmDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TareaDeleteDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [DeleteConfirmDialogComponent],
+      imports: [MatDialogModule, MatButtonModule],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: [] },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TareaDeleteDialogComponent);
+    fixture = TestBed.createComponent(DeleteConfirmDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
