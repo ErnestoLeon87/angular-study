@@ -4,12 +4,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
-<<<<<<< HEAD
       "jasmine"
-=======
-      "jest",
-      "node"
->>>>>>> bc9ac988bd5b171d0b70b6e5dbee2df8ec6b14ed
     ],
   },
   "files": [
