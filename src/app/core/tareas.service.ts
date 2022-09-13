@@ -19,11 +19,11 @@ export class TareaService {
 
   public getTareas$(): Observable<Tarea[]> {
     const urlGetTareas = this.url + '/tareas';
-    return this.http
-      .get<Tarea[]>(urlGetTareas)
-      .pipe(tap((tareas: Tarea[]) => {
+    return this.http.get<Tarea[]>(urlGetTareas).pipe(
+      tap((tareas: Tarea[]) => {
         this.tareaBehSub.next(tareas);
-      }));
+      })
+    );
   }
 
   public addTarea$(tarea: Tarea): Observable<Tarea> {
@@ -31,7 +31,9 @@ export class TareaService {
     let tareasArrary = this.tareaBehSub.getValue();
     tarea.status = TareaStatus.PENDIENTE;
     return this.http.post<Tarea>(urlPostTarea, tarea).pipe(
-      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
+      catchError((err) => {
+        throw new Error('Proceso invalido, problemas con la API-Tareas.');
+      }),
       tap((tarea: Tarea) => {
         tareasArrary.push(tarea);
         this.tareaBehSub.next(tareasArrary);
@@ -42,22 +44,30 @@ export class TareaService {
   public editTarea$(tarea: Tarea): Observable<Tarea> {
     const urlEditTarea = this.url + '/tarea/' + tarea.id;
     return this.http.put<Tarea>(urlEditTarea, tarea).pipe(
-      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
-      tap(dat => { this.tareaBehSub.next(this.updateArray(tarea)) })
+      catchError((err) => {
+        throw new Error('Proceso invalido, problemas con la API-Tareas.');
+      }),
+      tap((dat) => {
+        this.tareaBehSub.next(this.updateArray(tarea));
+      })
     );
   }
 
   public deleteTarea(idTareaDelete: number): Observable<Tarea> {
     const urlDeleteTarea = this.url + '/tarea/' + idTareaDelete;
     return this.http.delete<Tarea>(urlDeleteTarea).pipe(
-      catchError(err => { throw new Error("Proceso invalido, problemas con la API-Tareas.") }),
-      tap(dat => { this.tareaBehSub.next(this.updateArrayDelete(idTareaDelete)) })
+      catchError((err) => {
+        throw new Error('Proceso invalido, problemas con la API-Tareas.');
+      }),
+      tap((dat) => {
+        this.tareaBehSub.next(this.updateArrayDelete(idTareaDelete));
+      })
     );
   }
 
   private updateArray(tarea: Tarea): Tarea[] {
     let oldArray = Array.from(this.tareaBehSub.getValue());
-    const index = oldArray.findIndex(valTarea => valTarea.id === tarea.id);
+    const index = oldArray.findIndex((valTarea) => valTarea.id === tarea.id);
     oldArray[index] = tarea;
     return oldArray;
   }
@@ -65,5 +75,4 @@ export class TareaService {
     let oldArray = Array.from(this.tareaBehSub.getValue());
     return oldArray.filter((tarea) => tarea.id !== idTarea);
   }
-
 }
